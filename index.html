@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Хедлайн | IT-команда автоматизации бизнеса</title>
+    <!-- Подключение шрифтов и базовых стилей -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(0px);
+            background: rgba(255,255,255,0.96);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 18px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0f2b3d, #1e4a6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            color: #1e6f9f;
+            background: none;
+            -webkit-background-clip: unset;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #1e6f9f;
+        }
+        .btn-resume-header {
+            background: #0f2b3d;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: 0.2s;
+        }
+        .btn-resume-header:hover {
+            background: #1e4a6b;
+            transform: translateY(-1px);
+        }
+
+        /* footer */
+        footer {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 48px 0 32px;
+            margin-top: 64px;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .footer-copy {
+            text-align: center;
+            margin-top: 40px;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: #1e6f9f;
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-primary:hover {
+            background-color: #0f5a84;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30,111,159,0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #1e6f9f;
+            color: #1e6f9f;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            background: #eef4ff;
+        }
+
+        /* hero */
+        .hero {
+            padding: 60px 0 48px;
+            background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+        }
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 550px;
+            margin-bottom: 32px;
+        }
+        .hero-image {
+            flex: 0.8;
+            text-align: center;
+        }
+        .hero-image i {
+            font-size: 12rem;
+            color: #d4e6f1;
+        }
+
+        /* cards grid */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin: 48px 0;
+        }
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            transition: 0.2s;
+            border: 1px solid #f0f2f5;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: #1e6f9f;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+        .vacancy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .vacancy-item {
+            background: #f9fafb;
+            border-radius: 60px;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: 0.2s;
+        }
+        .vacancy-item:hover {
+            background: #eef2ff;
+        }
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 20px 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid #eef2ff;
+        }
+        .step-num {
+            background: #e6f0f9;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #1e6f9f;
+        }
+        .cta-block {
+            background: #0f2b3d;
+            border-radius: 40px;
+            padding: 48px 32px;
+            text-align: center;
+            color: white;
+            margin: 48px 0;
+        }
+        .cta-block h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .btn-white {
+            background: white;
+            color: #0f2b3d;
+            padding: 14px 36px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        /* страницы */
+        .page-section {
+            padding: 48px 0 32px;
+        }
+        .page-header {
+            margin-bottom: 32px;
+        }
+        .values-grid, .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+            gap: 32px;
+            margin: 32px 0;
+        }
+        .value-card {
+            background: #fefefe;
+            border-radius: 32px;
+            padding: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #eef2ff;
+        }
+        .job-list-category {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-left: 5px solid #1e6f9f;
+        }
+        .form-resume {
+            background: #f9fafb;
+            border-radius: 36px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 20px auto;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 28px;
+            border: 1px solid #d1d5db;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .success-message {
+            color: #15803d;
+            background: #e0f2e9;
+            padding: 12px;
+            border-radius: 60px;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .step {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">ХЕД<span>ЛАЙН</span></div>
+        <div class="nav-links">
+            <a href="#" data-page="home" class="nav-link active">Главная</a>
+            <a href="#" data-page="about" class="nav-link">О компании</a>
+            <a href="#" data-page="work" class="nav-link">Работа у нас</a>
+            <a href="#" data-page="vacancies" class="nav-link">Вакансии</a>
+            <a href="#" data-page="career" class="nav-link">Карьера</a>
+            <a href="#" data-page="resume" class="btn-resume-header">📄 Отправить резюме</a>
+        </div>
+    </div>
+</nav>
+
+<main id="app-root">
+    <!-- динамический контент будет вставляться сюда -->
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><strong>Хедлайн</strong><br>IT-решения для ритейла и ресторанов</div>
+            <div>📧 hr@headline.ru<br>📞 +7 (495) 123-45-67</div>
+            <div>📍 Москва, ул. Автоматизации, д.10</div>
+        </div>
+        <div class="footer-copy">© 2025 Хедлайн — работай в команде, которая меняет бизнес</div>
+    </div>
+</footer>
+
+<script>
+    // ---------- Данные для страниц ----------
+    const vacanciesData = {
+        it: [
+            { title: "Инженер техподдержки", location: "Москва / гибрид", type: "Полный день" },
+            { title: "IT специалист (DevOps)", location: "Москва", type: "Удаленно / офис" },
+            { title: "Backend-разработчик (Python)", location: "Москва", type: "Гибрид" }
+        ],
+        sales: [
+            { title: "Менеджер по продажам B2B", location: "Москва", type: "Полный день" },
+            { title: "Старший менеджер по развитию", location: "Москва + регионы", type: "Командировки" }
+        ],
+        internships: [
+            { title: "Стажировка IT-направление", location: "Москва", type: "3 месяца с наставником" },
+            { title: "Стажировка: аналитика данных", location: "Удаленно", type: "Гибкий график" }
+        ]
+    };
+
+    // компонент главной страницы
+    function renderHome() {
+        return `
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-grid">
+                        <div class="hero-content">
+                            <h1>Работай в IT-команде,<br> которая автоматизирует бизнес</h1>
+                            <p>Разрабатываем и поддерживаем IT-решения для розницы и ресторанов</p>
+                            <a href="#" data-nav="vacancies" class="btn-primary" id="hero-vacancy-btn">Смотреть вакансии</a>
+                        </div>
+                        <div class="hero-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <!-- Блок 2 - Почему работать у нас -->
+                <h2 class="section-title">Почему работать у нас</h2>
+                <div class="cards-grid">
+                    <div class="card"><div class="card-icon"><i class="fas fa-code"></i></div><h3>Работа в IT компании</h3><p>Современный стек, agile-культура, гибкие процессы.</p></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-project-diagram"></i></div><h3>Реальные проекты</h3><p>Влияй на продукты для федеральных сетей и ресторанов.</p></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-chalkboard-user"></i></div><h3>Рост и обучение</h3><p>Курсы, митапы, менторство и бюджет на образование.</p></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-users"></i></div><h3>Сильная команда</h3><p>Эксперты своего дела, поддержка и драйв.</p></div>
+                </div>
+
+                <!-- Блок 3 - Вакансии (список) -->
+                <h2 class="section-title">Актуальные вакансии</h2>
+                <div class="vacancy-list">
+                    <div class="vacancy-item"><span><strong>Инженер техподдержки</strong> — поддержка корпоративных систем</span> <a href="#" data-nav="vacancies" class="btn-outline" style="padding:6px 18px;">Откликнуться</a></div>
+                    <div class="vacancy-item"><span><strong>IT специалист</strong> — администрирование и автоматизация</span> <a href="#" data-nav="vacancies" class="btn-outline" style="padding:6px 18px;">Откликнуться</a></div>
+                    <div class="vacancy-item"><span><strong>Менеджер по продажам</strong> — IT-решения для HoReCa</span> <a href="#" data-nav="vacancies" class="btn-outline" style="padding:6px 18px;">Откликнуться</a></div>
+                </div>
+
+                <!-- Блок 4 - Как проходит найм -->
+                <h2 class="section-title">Как проходит найм</h2>
+                <div class="steps">
+                    <div class="step"><div class="step-num">1</div><strong>Отклик</strong><br>резюме или анкета</div>
+                    <div class="step"><div class="step-num">2</div><strong>Интервью</strong><br>с HR и Tech-лидом</div>
+                    <div class="step"><div class="step-num">3</div><strong>Тестовое задание</strong><br>реальный кейс</div>
+                    <div class="step"><div class="step-num">4</div><strong>Оффер</strong><br>добро пожаловать в команду!</div>
+                </div>
+
+                <!-- Блок 5 CTA -->
+                <div class="cta-block">
+                    <h2>Готовы развивать IT вместе с нами?</h2>
+                    <p>Отправьте резюме, и мы свяжемся с вами в течение 2 рабочих дней</p>
+                    <a href="#" data-nav="resume" class="btn-white">Отправить резюме →</a>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderAbout() {
+        return `
+            <div class="container page-section">
+                <div class="page-header"><h1>О компании Хедлайн</h1><p>Мы создаем IT-экосистему для автоматизации розничной торговли и ресторанного бизнеса с 2015 года.</p></div>
+                <div class="culture-grid">
+                    <div class="value-card"><i class="fas fa-rocket" style="font-size:2rem; color:#1e6f9f;"></i><h3>Миссия</h3><p>Цифровая трансформация бизнеса клиентов через надежные, масштабируемые решения.</p></div>
+                    <div class="value-card"><i class="fas fa-eye" style="font-size:2rem; color:#1e6f9f;"></i><h3>Видение</h3><p>Стать лидером в автоматизации ритейла в Восточной Европе.</p></div>
+                    <div class="value-card"><i class="fas fa-handshake" style="font-size:2rem; color:#1e6f9f;"></i><h3>Наши клиенты</h3><p>Более 300 компаний: от локальных сетей до международных брендов.</p></div>
+                </div>
+                <h2>Технологии и подход</h2>
+                <p>Python, Go, React, Kubernetes, Kafka — мы выбираем современный стек. Поощряем open-source инициативы и внутренние инновации.</p>
+            </div>
+        `;
+    }
+
+    function renderWork() {
+        return `
+            <div class="container page-section">
+                <h1>Работа у нас</h1>
+                <div class="cards-grid" style="margin-top:20px">
+                    <div class="card"><div class="card-icon"><i class="fas fa-medal"></i></div><h3>Культура</h3><p>Открытость, горизонтальные связи, свобода принимать решения.</p></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-gem"></i></div><h3>Ценности</h3><p>Ответственность, клиентоцентричность, инновации.</p></div>
+                    <div class="card"><div class="card-icon"><i class="fas fa-chart-line"></i></div><h3>Преимущества</h3><p>ДМС, гибридный график, релокационная поддержка, спорт и питание.</p></div>
+                </div>
+                <h2>Культура</h2>
+                <p>Мы ценим баланс, устраиваем хакатоны, корпоративные воркшопы и создаём среду, где каждый может проявить себя.</p>
+                <h2 style="margin-top:32px">Ценности</h2>
+                <ul style="margin-left:20px"><li>🤝 Доверие и прозрачность</li><li>📈 Стремление к совершенству</li><li>⚡ Быстрота и гибкость</li></ul>
+                <h2 style="margin-top:32px">Преимущества</h2>
+                <ul><li>✅ Конкурентоспособная зарплата</li><li>✅ Годовой бонус по KPI</li><li>✅ Участие в профильных конференциях за счет компании</li></ul>
+            </div>
+        `;
+    }
+
+    function renderVacancies() {
+        return `
+            <div class="container page-section">
+                <h1>Вакансии в Хедлайн</h1>
+                <div class="job-list-category"><h3><i class="fas fa-microchip"></i> IT специалисты</h3>
+                    ${vacanciesData.it.map(v => `<div class="vacancy-item" style="margin-bottom:12px"><span>${v.title} — ${v.location} / ${v.type}</span><a href="#" data-nav="resume" class="btn-outline" style="padding:4px 16px; font-size:0.9rem">Откликнуться</a></div>`).join('')}
+                </div>
+                <div class="job-list-category"><h3><i class="fas fa-chart-simple"></i> Менеджеры по продажам</h3>
+                    ${vacanciesData.sales.map(v => `<div class="vacancy-item" style="margin-bottom:12px"><span>${v.title} — ${v.location} / ${v.type}</span><a href="#" data-nav="resume" class="btn-outline" style="padding:4px 16px">Откликнуться</a></div>`).join('')}
+                </div>
+                <div class="job-list-category"><h3><i class="fas fa-graduation-cap"></i> Стажировки</h3>
+                    ${vacanciesData.internships.map(v => `<div class="vacancy-item" style="margin-bottom:12px"><span>${v.title} — ${v.location} / ${v.type}</span><a href="#" data-nav="resume" class="btn-outline" style="padding:4px 16px">Откликнуться</a></div>`).join('')}
+                </div>
+                <div class="cta-block" style="background:#eef2ff; color:#0f2b3d"><h3>Не нашли подходящую роль?</h3><a href="#" data-nav="resume" class="btn-primary">Отправить открытое резюме</a></div>
+            </div>
+        `;
+    }
+
+    function renderCareer() {
+        return `
+            <div class="container page-section">
+                <h1>Карьерный трек</h1>
+                <div class="cards-grid">
+                    <div class="card"><i class="fas fa-graduation-cap card-icon"></i><h3>Обучение</h3><p>Корпоративный университет, курсы английского, тренинги от партнеров. Каждому сотруднику — бюджет 50 000 ₽/год на доп.образование.</p></div>
+                    <div class="card"><i class="fas fa-arrow-up card-icon"></i><h3>Рост</h3><p>Junior → Middle → Senior → Team Lead / Architect. Регулярная оценка компетенций, персональный план развития.</p></div>
+                </div>
+                <h2>Как мы растим лидеров</h2>
+                <p>Программа "Лидеры Хедлайн", менторинг, ротация между проектами. Участие в стратегических инициативах компании.</p>
+                <div style="background:#f0f7fc; border-radius:32px; padding:28px; margin-top:24px"><strong>🎯 Пример роста:</strong> Инженер поддержки → разработчик автоматизации → технический проджект-менеджер за 2 года.</div>
+            </div>
+        `;
+    }
+
+    let successMessageTimeout = null;
+
+    function renderResumeForm() {
+        return `
+            <div class="container page-section">
+                <h1>Отправить резюме</h1>
+                <p>Заполните форму, и наши HR-специалисты свяжутся с вами. Прикрепите ссылку на CV или файл (в свободном поле).</p>
+                <div class="form-resume" id="resumeFormContainer">
+                    <form id="resumeForm">
+                        <div class="form-group"><label>ФИО *</label><input type="text" id="fullname" required></div>
+                        <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
+                        <div class="form-group"><label>Телефон</label><input type="tel" id="phone"></div>
+                        <div class="form-group"><label>Интересующая позиция</label><select id="position">
+                            <option>Инженер техподдержки</option><option>IT специалист</option><option>Менеджер по продажам</option><option>Стажировка IT</option><option>Другое</option>
+                        </select></div>
+                        <div class="form-group"><label>Ссылка на резюме / LinkedIn / GitHub</label><input type="text" id="resumeLink" placeholder="https://..."></div>
+                        <div class="form-group"><label>Коротко о себе</label><textarea rows="3" id="aboutText" placeholder="Ваши навыки, опыт..."></textarea></div>
+                        <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">Отправить резюме →</button>
+                        <div id="formFeedback" style="margin-top:20px;"></div>
+                    </form>
+                </div>
+            </div>
+        `;
+    }
+
+    function attachFormHandler() {
+        const form = document.getElementById('resumeForm');
+        if(form) {
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                const name = document.getElementById('fullname')?.value;
+                if(!name || name.trim() === "") {
+                    showFormFeedback("Пожалуйста, укажите ФИО", "error");
+                    return;
+                }
+                // имитация отправки
+                showFormFeedback("✅ Спасибо! Ваше резюме получено. Мы свяжемся в ближайшее время.", "success");
+                form.reset();
+                if(successMessageTimeout) clearTimeout(successMessageTimeout);
+                successMessageTimeout = setTimeout(() => {
+                    const fb = document.getElementById('formFeedback');
+                    if(fb) fb.innerHTML = "";
+                }, 5000);
+            };
+        }
+    }
+
+    function showFormFeedback(msg, type) {
+        const fbDiv = document.getElementById('formFeedback');
+        if(fbDiv) {
+            fbDiv.innerHTML = `<div class="${type === 'success' ? 'success-message' : 'error-message'}" style="background:${type === 'error' ? '#fee2e2' : '#e0f2e9'}; color:${type === 'error' ? '#b91c1c' : '#15803d'}">${msg}</div>`;
+        }
+    }
+
+    // Роутинг
+    let currentPage = "home";
+
+    function setActiveNav(pageId) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const pageAttr = link.getAttribute('data-page');
+            if(pageAttr === pageId) link.classList.add('active');
+            else link.classList.remove('active');
+        });
+    }
+
+    function renderPage(page) {
+        const root = document.getElementById('app-root');
+        if(!root) return;
+        let html = '';
+        if(page === 'home') html = renderHome();
+        else if(page === 'about') html = renderAbout();
+        else if(page === 'work') html = renderWork();
+        else if(page === 'vacancies') html = renderVacancies();
+        else if(page === 'career') html = renderCareer();
+        else if(page === 'resume') html = renderResumeForm();
+        else html = renderHome();
+        root.innerHTML = html;
+        currentPage = page;
+        setActiveNav(page);
+        
+        // после рендеринга формы привязать обработчик
+        if(page === 'resume') attachFormHandler();
+
+        // перехват кликов внутри контента, которые используют data-nav (для кнопок)
+        document.querySelectorAll('[data-nav]').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = el.getAttribute('data-nav');
+                if(targetPage) navigateTo(targetPage);
+            });
+        });
+        const heroBtn = document.getElementById('hero-vacancy-btn');
+        if(heroBtn) heroBtn.addEventListener('click', (e) => { e.preventDefault(); navigateTo('vacancies'); });
+    }
+
+    function navigateTo(page) {
+        if(page === currentPage) {
+            // если уже на странице, но можем обновить если форма и тд
+            renderPage(page);
+        } else {
+            renderPage(page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function initRouting() {
+        // Обработка навигационных ссылок
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                if(page) navigateTo(page);
+            });
+        });
+        // Стартовая страница
+        renderPage('home');
+    }
+
+    initRouting();
+</script>
+</body>
+</html>
