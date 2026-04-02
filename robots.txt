@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /*?*
+
+Sitemap: https://headline.ru/sitemap.xml
