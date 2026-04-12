@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Регистрация | HR Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(0px);
+            background: rgba(255,255,255,0.96);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 18px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0f2b3d, #1e4a6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            color: #1e6f9f;
+            background: none;
+            -webkit-background-clip: unset;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #1e6f9f;
+        }
+        .btn-resume-header {
+            background: #0f2b3d;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: 0.2s;
+        }
+        .btn-resume-header:hover {
+            background: #1e4a6b;
+            transform: translateY(-1px);
+        }
+
+        /* footer */
+        footer {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 48px 0 32px;
+            margin-top: 64px;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .footer-copy {
+            text-align: center;
+            margin-top: 40px;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* Стили для формы регистрации */
+        .register-section {
+            min-height: calc(100vh - 280px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .register-card {
+            max-width: 560px;
+            width: 100%;
+            background: white;
+            border-radius: 36px;
+            padding: 40px 36px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid #eef2ff;
+            transition: transform 0.2s;
+        }
+
+        .register-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .register-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0f2b3d, #1e4a6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .register-header p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-group label .required {
+            color: #dc2626;
+            margin-left: 4px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 40px;
+            border: 1.5px solid #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: #ffffff;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #1e6f9f;
+            box-shadow: 0 0 0 3px rgba(30,111,159,0.1);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #9ca3af;
+            font-size: 1.2rem;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #1e6f9f;
+        }
+
+        .error-message {
+            font-size: 0.75rem;
+            color: #dc2626;
+            margin-top: 6px;
+            display: block;
+            min-height: 18px;
+        }
+
+        .checkbox-group {
+            margin: 20px 0 24px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            color: #4b5563;
+            font-size: 0.875rem;
+        }
+
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #1e6f9f;
+        }
+
+        .checkbox-label a {
+            color: #1e6f9f;
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        .register-btn {
+            width: 100%;
+            background: #1e6f9f;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .register-btn:hover {
+            background: #0f5a84;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30,111,159,0.25);
+        }
+
+        .login-link {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .login-link a {
+            color: #1e6f9f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-global {
+            background: #fef2f2;
+            color: #b91c1c;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 0.875rem;
+            text-align: center;
+            margin-bottom: 24px;
+            display: none;
+            border: 1px solid #fecaca;
+        }
+
+        .success-toast {
+            background: #e0f2e9;
+            color: #15803d;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 0.875rem;
+            text-align: center;
+            margin-bottom: 24px;
+            display: none;
+            border: 1px solid #bbf7d0;
+        }
+
+        .strength-meter {
+            margin-top: 8px;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s, background 0.3s;
+            border-radius: 4px;
+        }
+
+        .strength-text {
+            font-size: 0.7rem;
+            margin-top: 4px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 640px) {
+            .register-card {
+                padding: 32px 24px;
+            }
+            .register-header h1 {
+                font-size: 1.7rem;
+            }
+            .input-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+        <div class="navbar">
+        <div class="nav-container">
+            <div class="logo">ХЕД<span>ЛАЙН</span></div>
+            <div class="nav-links">
+                <a href="index.html"">Главная</a>
+                <a href="reg.html">Регистрация</a>
+                <a href="avtoris.html">Авторизация</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="register-section">
+        <div class="register-card">
+            <div class="register-header">
+                <h1>Создать аккаунт</h1>
+                <p>Присоединяйтесь к HR Portal</p>
+            </div>
+
+            <div id="errorGlobal" class="error-global"></div>
+            <div id="successToast" class="success-toast">Регистрация успешна! Теперь вы можете войти.</div>
+
+            <form id="registerForm">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="firstName">Имя <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Иван">
+                        <span class="error-message" id="firstNameError"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="lastName">Фамилия <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Иванов">
+                        <span class="error-message" id="lastNameError"></span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="ivan@example.com" autocomplete="email">
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67">
+                    <span class="error-message" id="phoneError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Пароль <span class="required">*</span></label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Создайте пароль">
+                        <span class="toggle-password" onclick="togglePasswordVisibility('password', this)">👁️</span>
+                    </div>
+                    <div class="strength-meter">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText"></div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirmPassword">Подтверждение пароля <span class="required">*</span></label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Повторите пароль">
+                        <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', this)">👁️</span>
+                    </div>
+                    <span class="error-message" id="confirmError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="role">Роль</label>
+                    <select id="role" name="role">
+                        <option value="job_seeker">Соискатель</option>
+                        <option value="employer">Работодатель</option>
+                        <option value="recruiter">Рекрутер</option>
+                    </select>
+                    <span class="error-message" id="roleError"></span>
+                </div>
+
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeTerms">
+                        <span>Я принимаю <a href="#" id="termsLink">условия использования</a> и <a href="#" id="privacyLink">политику конфиденциальности</a> <span style="color:#dc2626;">*</span></span>
+                    </label>
+                    <span class="error-message" id="termsError"></span>
+                </div>
+
+                <button type="submit" class="register-btn">Зарегистрироваться</button>
+
+                <div class="login-link">
+                    Уже есть аккаунт? <a href="#" id="loginLink">Войти</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="font-size:1.5rem;">HR<span>Portal</span></div>
+                    <p style="margin-top:12px; color:#6b7280;">Работа мечты для вас</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:12px;">Разделы</h4>
+                    <p><a href="#" style="text-decoration:none; color:#6b7280;">Вакансии</a></p>
+                    <p><a href="#" style="text-decoration:none; color:#6b7280;">О компании</a></p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:12px;">Контакты</h4>
+                    <p style="color:#6b7280;">hr@portal.ru</p>
+                    <p style="color:#6b7280;">+7 (495) 123-45-67</p>
+                </div>
+            </div>
+            
+        </div>
+    </footer>

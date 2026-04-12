@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Авторизация | HR Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(0px);
+            background: rgba(255,255,255,0.96);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 18px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0f2b3d, #1e4a6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            color: #1e6f9f;
+            background: none;
+            -webkit-background-clip: unset;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1f2937;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #1e6f9f;
+        }
+        .btn-resume-header {
+            background: #0f2b3d;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: 0.2s;
+        }
+        .btn-resume-header:hover {
+            background: #1e4a6b;
+            transform: translateY(-1px);
+        }
+
+        /* footer */
+        footer {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 48px 0 32px;
+            margin-top: 64px;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .footer-copy {
+            text-align: center;
+            margin-top: 40px;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: #1e6f9f;
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-primary:hover {
+            background-color: #0f5a84;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30,111,159,0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #1e6f9f;
+            color: #1e6f9f;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            background: #eef4ff;
+        }
+
+        /* hero */
+        .hero {
+            padding: 60px 0 48px;
+            background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+        }
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 550px;
+            margin-bottom: 32px;
+        }
+        .hero-image {
+            flex: 0.8;
+            text-align: center;
+        }
+        .hero-image i {
+            font-size: 12rem;
+            color: #d4e6f1;
+        }
+
+        /* cards grid */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin: 48px 0;
+        }
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            transition: 0.2s;
+            border: 1px solid #f0f2f5;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: #1e6f9f;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+        .vacancy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .vacancy-item {
+            background: #f9fafb;
+            border-radius: 60px;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: 0.2s;
+        }
+        .vacancy-item:hover {
+            background: #eef2ff;
+        }
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 40px;
+            padding: 20px 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid #eef2ff;
+        }
+        .step-num {
+            background: #e6f0f9;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #1e6f9f;
+        }
+        .cta-block {
+            background: #0f2b3d;
+            border-radius: 40px;
+            padding: 48px 32px;
+            text-align: center;
+            color: white;
+            margin: 48px 0;
+        }
+        .cta-block h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .btn-white {
+            background: white;
+            color: #0f2b3d;
+            padding: 14px 36px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        /* страницы */
+        .page-section {
+            padding: 48px 0 32px;
+        }
+        .page-header {
+            margin-bottom: 32px;
+        }
+        .values-grid, .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+            gap: 32px;
+            margin: 32px 0;
+        }
+        .value-card {
+            background: #fefefe;
+            border-radius: 32px;
+            padding: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #eef2ff;
+        }
+        .job-list-category {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-left: 5px solid #1e6f9f;
+        }
+        .form-resume {
+            background: #f9fafb;
+            border-radius: 36px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 20px auto;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 28px;
+            border: 1px solid #d1d5db;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .success-message {
+            color: #15803d;
+            background: #e0f2e9;
+            padding: 12px;
+            border-radius: 60px;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ ФОРМЫ АВТОРИЗАЦИИ ===== */
+        .auth-section {
+            min-height: calc(100vh - 280px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .auth-card {
+            max-width: 480px;
+            width: 100%;
+            background: white;
+            border-radius: 36px;
+            padding: 40px 36px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid #eef2ff;
+            transition: transform 0.2s;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #0f2b3d, #1e4a6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 40px;
+            border: 1.5px solid #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: #ffffff;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1e6f9f;
+            box-shadow: 0 0 0 3px rgba(30,111,159,0.1);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #9ca3af;
+            font-size: 1.2rem;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #1e6f9f;
+        }
+
+        .error-message {
+            font-size: 0.75rem;
+            color: #dc2626;
+            margin-top: 6px;
+            display: block;
+            min-height: 20px;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 28px;
+            font-size: 0.875rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #1e6f9f;
+        }
+
+        .forgot-link {
+            color: #1e6f9f;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover {
+            color: #0f5a84;
+            text-decoration: underline;
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: #1e6f9f;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .auth-btn:hover {
+            background: #0f5a84;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30,111,159,0.25);
+        }
+
+        .register-link {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .register-link a {
+            color: #1e6f9f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-global {
+            background: #fef2f2;
+            color: #b91c1c;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 0.875rem;
+            text-align: center;
+            margin-bottom: 24px;
+            display: none;
+            border: 1px solid #fecaca;
+        }
+
+        .success-toast {
+            background: #e0f2e9;
+            color: #15803d;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 0.875rem;
+            text-align: center;
+            margin-bottom: 24px;
+            display: none;
+            border: 1px solid #bbf7d0;
+        }
+
+        @media (max-width: 640px) {
+            .auth-card {
+                padding: 32px 24px;
+            }
+            .auth-header h1 {
+                font-size: 1.7rem;
+            }
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="logo">ХЕД<span>ЛАЙН</span></div>
+            <div class="nav-links">
+                <a href="index.html"">Главная</a>
+                <a href="reg.html">Регистрация</a>
+                <a href="avtoris.html">Авторизация</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-section">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Добро пожаловать</h1>
+                <p>Войдите в личный кабинет</p>
+            </div>
+
+            <div id="errorGlobal" class="error-global"></div>
+            <div id="successToast" class="success-toast">Успешный вход!</div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">Email или логин</label>
+                    <input type="text" id="email" name="email" placeholder="ivan@example.com" autocomplete="email">
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Пароль</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe"> Запомнить меня
+                    </label>
+                    <a href="#" id="forgotPassword" class="forgot-link">Забыли пароль?</a>
+                </div>
+
+                <button type="submit" class="auth-btn">Войти</button>
+
+                <div class="register-link">
+                    Нет аккаунта? <a href="#" id="registerLink">Зарегистрироваться</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="font-size:1.5rem;">HR<span>Portal</span></div>
+                    <p style="margin-top:12px; color:#6b7280;">Работа мечты для вас</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:12px;">Разделы</h4>
+                    <p><a href="#" style="text-decoration:none; color:#6b7280;">Вакансии</a></p>
+                    <p><a href="#" style="text-decoration:none; color:#6b7280;">О компании</a></p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:12px;">Контакты</h4>
+                    <p style="color:#6b7280;">hr@portal.ru</p>
+                    <p style="color:#6b7280;">+7 (495) 123-45-67</p>
+                </div>
+            </div>
+            <div class="footer-copy">
+                
+            </div>
+        </div>
+    </footer>
